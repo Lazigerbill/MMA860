@@ -66,12 +66,16 @@ calc_power <- function(turbine_area, max_pow_co, air_den, windspeed){
 	return(air_den*turbine_area*0.5*(windspeed)^3*max_pow_co)
 }
 
-clean_df <- mutate(clean_df, turb_output=if_else(wind_spd_ms<min | wind_spd_ms>max, 0, 
+clean_df <- mutate(clean_df, turb_output=if_else(wind_spd_ms<=min | wind_spd_ms>=max, 0, 
 	if_else(calc_power(turbine_area, max_pow_co, air_den, wind_spd_ms)>norm, norm,calc_power(turbine_area, max_pow_co, air_den, wind_spd_ms)
 	))
 )
 
+# do a quick true/false condition met column and count to match 0s in power output
 
+# d) total amount of electricity produced for the entire windfarm in January in MW
+round(sum(clean_df$turb_output)/1000000, 2)
+paste("Total electricity produced in January:", round(sum(clean_df$turb_output)/1000000, 2))
 
 
 
