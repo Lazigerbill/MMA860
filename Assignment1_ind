@@ -1,5 +1,0 @@
-library(tidyverse)
-library(dplyr)
-library(readxl)
-
-df <- read_excel("/Users/localadmin/Downloads/Smoking_Data_2000_Rows.xls")
