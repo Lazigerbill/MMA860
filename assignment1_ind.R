@@ -1,4 +1,4 @@
-# MMA860 Individual Assigment#1
+		# MMA860 Individual Assigment#1
 #Bill Chau Jun 28, 2019
 
 library(tidyverse)
@@ -9,11 +9,12 @@ library(lubridate)
 loc_df <- read_excel("/Users/localadmin/Downloads/MMA860_Assignment1_Data_vf.xlsx", sheet = 1)
 spec_df <- read_excel("/Users/localadmin/Downloads/MMA860_Assignment1_Data_vf.xlsx", sheet = 2)
 weath_df <- read_excel("/Users/localadmin/Downloads/MMA860_Assignment1_Data_vf.xlsx", sheet = 3)
-
+# could skip rows during read_excel 
 
 #split and clean weather data
 info <- weath_df[0:9, 0:2]
 clean_df <- tail(weath_df, -16)
+# if don't reformat colnames, can do: clean_df$'stn press (kPa)'
 
 # rename column names
 header <- c(t(weath_df[16,]))
@@ -82,4 +83,6 @@ ggplot(cdata, aes(date, turb_output)) +
 	geom_step(direction="hv") +
 	theme_grey() +
 	labs(x="Date", y="Windfarm output in Mega Watts", title="Daily windfarm electricity output in January")
+
+write.table(cdata, "/Users/localadmin/Downloads/cdata.txt", sep="\t")
 
